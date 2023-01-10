@@ -6,7 +6,14 @@
 "let g:rain_palette = ['#000000', '#222222', '#515151', '#929292', '#cbcbcb', '#ebebeb', '#ffffff']
 
 " Grayscale 10% / 20% / 25% / 50% / 75% / 80% / 90%
-let g:rain_palette = ['#222222', '#424242', '#515151', '#929292', '#cbcbcb', '#d6d6d6', '#ebebeb']
+"let g:rain_palette = ['#222222', '#424242', '#515151', '#929292', '#cbcbcb', '#d6d6d6', '#ebebeb']
+
+" Grayscale palette (16 color)
+"let g:rain_palette = ['#000000', '#111111', '#222222', '#333333', '#444444', '#555555', '#666666', '#777777', '#888888', '#999999', '#AAAAAA', '#BBBBBB', '#CCCCCC', '#DDDDDD', '#EEEEEE', '#FFFFFF']
+
+" Grayscale palette (6 color)
+let g:rain_palette = ['#111111', '#333333', '#666666', '#999999', '#CCCCCC', '#EEEEEE']
+let g:rain_xpalette = [233, 236, 241, 247, 252, 255]
 
 function! s:RainColors()
   highlight clear
@@ -18,12 +25,14 @@ function! s:RainColors()
 
   " Set colors based off palette.
   " Palette is sorted dark -> light
-  let l:colors = g:rain_palette
+  let l:gcolors = g:rain_palette
+  let l:xcolors = g:rain_xpalette
 
   if &background == "light"
     " First color is assumed to be background and last color is foreground
     " Reverse palette order for light themes
-    call reverse(l:colors)
+    call reverse(l:gcolors)
+    call reverse(l:xcolors)
   endif
 
   function! s:hi(group, guifg, guibg, ctermfg, ctermbg, attr, guisp)
@@ -52,18 +61,23 @@ function! s:RainColors()
   endfunction
 
   " Set highlight colors
-  call s:hi('Normal', l:colors[-1], l:colors[0], 'NONE', 'NONE', '', '')
+  call s:hi('Normal', l:gcolors[-1], l:gcolors[0], l:xcolors[-1], l:xcolors[0], '', '')
+  call s:hi('Visual', '', l:gcolors[2], '', l:xcolors[2], '', '')
   call s:hi('Bold', '', '', '', '', 'bold', '')
-  call s:hi('Comment', 'NONE', 'NONE', 'NONE', 'NONE', 'italic', '')
-  call s:hi('String', l:colors[-4], '', '', '', '', '')
-  call s:hi('Identifier', l:colors[-2], 'NONE', 'NONE', 'NONE', '', '')
-  call s:hi('LineNr', l:colors[2], 'NONE', 'NONE', 'NONE', '', '')
-  call s:hi('CursorLineNr', l:colors[-3], 'NONE', 'NONE', 'NONE', 'bold', '')
-  call s:hi('CursorLine', '', l:colors[2], '', '', '', '')
+  call s:hi('Comment', l:gcolors[-3], 'NONE', l:xcolors[-3], 'NONE', 'italic', '')
+  call s:hi('String', l:gcolors[-3], '', l:xcolors[-3], '', '', '')
+  call s:hi('Identifier', l:gcolors[-2], 'NONE', l:xcolors[-2], 'NONE', '', '')
+  call s:hi('Constant', l:gcolors[-3], 'NONE', l:xcolors[-3], 'NONE', 'bold', '')
+  call s:hi('Special', l:gcolors[-1], '', l:xcolors[-1], '', 'bold', '')
+  call s:hi('LineNr', l:gcolors[2], 'NONE', l:xcolors[2], 'NONE', '', '')
+  call s:hi('CursorLineNr', l:gcolors[-3], 'NONE', l:xcolors[-3], 'NONE', 'bold', '')
+  call s:hi('CursorLine', '', l:gcolors[1], '', l:xcolors[1], 'NONE', '')
+  call s:hi('MatchParen', l:gcolors[0], l:gcolors[-2], l:xcolors[0], l:xcolors[-2], 'bold', '')
 
   hi! link Function Identifier
   hi! link Statement Identifier
   hi! link Type Identifier
+  hi! link PreProc Function
 
 
   " Preferred groups
