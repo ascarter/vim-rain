@@ -1,4 +1,9 @@
 " Rain theme
+" rain.vim
+"
+" Author:      Andrew Carter (ascarter@uw.edu)
+" URL:         https://github.com/ascarter/rain.vim
+" Description: Grayscale colorscheme optimized for color-blind users.
 
 " Palettes
 
@@ -62,7 +67,7 @@ function! s:RainColors()
 
   " Set highlight colors
   call s:hi('Normal', l:gcolors[-1], l:gcolors[0], l:xcolors[-1], l:xcolors[0], '', '')
-  call s:hi('Visual', '', l:gcolors[2], '', l:xcolors[2], '', '')
+  call s:hi('Visual', l:gcolors[0], l:gcolors[-1], l:xcolors[0], l:xcolors[-1], '', '')
   call s:hi('Bold', '', '', '', '', 'bold', '')
   call s:hi('Comment', l:gcolors[-3], 'NONE', l:xcolors[-3], 'NONE', 'italic', '')
   call s:hi('String', l:gcolors[-3], '', l:xcolors[-3], '', '', '')
@@ -72,7 +77,7 @@ function! s:RainColors()
   call s:hi('LineNr', l:gcolors[2], 'NONE', l:xcolors[2], 'NONE', '', '')
   call s:hi('CursorLineNr', l:gcolors[-3], 'NONE', l:xcolors[-3], 'NONE', 'bold', '')
   call s:hi('CursorLine', '', l:gcolors[1], '', l:xcolors[1], 'NONE', '')
-  call s:hi('MatchParen', l:gcolors[0], l:gcolors[-2], l:xcolors[0], l:xcolors[-2], 'bold', '')
+  "call s:hi('MatchParen', l:gcolors[0], l:gcolors[-2], l:xcolors[0], l:xcolors[-2], 'bold', '')
 
   hi! link Function Identifier
   hi! link Statement Identifier
